@@ -1,8 +1,7 @@
 import jdk.jfr.Timespan;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Timeout;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,18 +14,18 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Tests {
-    WebDriver driver=new ChromeDriver();
-
+    WebDriver driver;
     @Before
     public void  setUp()
     {
+        driver=new ChromeDriver();
         System.setProperty("webdriver.chrome.driver","C:\\chdriver\\chromedriver.exe");
         driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
+        driver.get("https://pikabu.ru/");
     }
 
   @Test
   public void  PikabuTest() throws InterruptedException {
-      driver.get("https://pikabu.ru/");
       Assert.assertEquals("Горячее – самые интересные и обсуждаемые посты | Пикабу", driver.getTitle());
       driver.findElement(By.cssSelector(".header-right-menu__login-button")).click();
       driver.findElement(By.xpath("//div[@class='auth-modal']//div[text()='Войти']")).isDisplayed();
